@@ -1,4 +1,5 @@
-proxmox_api_root: "https://proxmox.lab.local:8006/api2/json"
+proxmox_node_name:
+proxmox_api_root: "https://{{ proxmox_node_name }}/api2/json"
 proxmox_csrf:
 proxmox_ticket:
 proxmox_output:

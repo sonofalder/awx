@@ -2,12 +2,14 @@
 - name: Proxmox - Get Nodes - Assertions
   assert:
     that:
+      - proxmox_node_name is defined
+      - proxmox_node_name | length > 0
       - proxmox_vm_type is defined
       - proxmox_vm_type in ['qemu', 'lxc']
 
 - name: Proxmox - Get Nodes
   uri:
-    url: "{{ proxmox_api_root }}/nodes/{{ proxmox_node }}/{{ proxmox_vm_type }}"
+    url: "{{ proxmox_api_root }}/nodes/{{ proxmox_node_name.split('.') | first }}/{{ proxmox_vm_type }}"
     headers:
      Cookie: "PVEAuthCookie={{ proxmox_ticket }}"
     method: GET

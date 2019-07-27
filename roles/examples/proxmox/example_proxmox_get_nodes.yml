@@ -1,0 +1,27 @@
+---
+- name: Proxmox - Get Node
+  hosts: 127.0.0.1
+  connection: local
+  gather_facts: no
+  vars_prompt:
+
+    - name: "proxmox_user"
+      prompt: "Proxmox User"
+      private: no
+
+    - name: "proxmox_password"
+      prompt: "Proxmox Password"
+      private: yes
+
+  tasks:
+    - name: Proxmox - Log In
+      include_role:
+        name: proxmox_login
+
+    - name: Proxmox - Get Nodes
+      include_role:
+        name: proxmox_get_nodes
+      vars:
+        proxmox_node_name: "proxmox.lab.local:8006"
+        proxmox_vm_type: qemu
+
