@@ -1,0 +1,9 @@
+galaxy_info:
+  role_name: proxmox_login
+  author: "Chris Alderson"
+  description: "A role to set default variables that should be in all underlying proxmox roles"
+
+  min_ansible_version: 2.4
+
+dependencies:
+  - { role: proxmox_common }

@@ -1,0 +1,5 @@
+---
+proxmox_vm_id:
+proxmox_vm_type:
+proxmox_node:
+proxmox_get_node_status:
