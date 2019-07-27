@@ -1,0 +1,16 @@
+---
+- name: Proxmox - Log In
+  no_log: yes
+  uri:
+    url: "{{ proxmox_api_root }}/access/ticket"
+    body: "username={{ proxmox_user }}@pam&password={{ proxmox_password | urlencode }}"
+    method: POST
+    status_code: 200
+    validate_certs: no
+    return_content: yes
+  register: proxmox_output
+
+- name: Proxmox - Log In - Set Facts - proxmox_csrf, proxmox_ticket
+  set_fact:
+    proxmox_csrf: "{{ proxmox_output.json.data.CSRFPreventionToken }}"
+    proxmox_ticket: "{{ proxmox_output.json.data.ticket }}"

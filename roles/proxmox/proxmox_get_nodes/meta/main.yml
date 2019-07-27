@@ -1,0 +1,9 @@
+galaxy_info:
+  role_name: proxmox_get_nodes
+  author: "Chris Alderson"
+  description: "A role for proxmox, meant to grab a nodes status"
+
+  min_ansible_version: 2.4
+
+dependencies:
+  - { role: proxmox_common }

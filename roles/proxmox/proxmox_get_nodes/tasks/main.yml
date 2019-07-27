@@ -1,0 +1,27 @@
+---
+- name: Proxmox - Get Nodes - Assertions
+  assert:
+    that:
+      - proxmox_vm_type is defined
+      - proxmox_vm_type in ['qemu', 'lxc']
+
+- name: Proxmox - Get Nodes
+  uri:
+    url: "{{ proxmox_api_root }}/nodes/{{ proxmox_node }}/{{ proxmox_vm_type }}"
+    headers:
+     Cookie: "PVEAuthCookie={{ proxmox_ticket }}"
+    method: GET
+    status_code: 200
+    validate_certs: no
+    return_content: yes
+  register: proxmox_output
+
+- name: Proxmox - Get Nodes - Set Facts - proxmox_get_nodes
+  set_fact:
+    proxmox_get_nodes: "{{ proxmox_output }}"
+
+- name: Proxmox - Get Nodes - Debug - proxmox_get_nodes
+  debug:
+    msg: "{{ proxmox_get_nodes }}"
+  when:
+    - proxmox_verbose | string | bool
